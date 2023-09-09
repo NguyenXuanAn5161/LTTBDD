@@ -8,57 +8,66 @@
 </head>
 <script>
     // Coding Challenge #1
-
-    var massMark
-    var heightMark
-    var massJohn
-    var heightJohn
-        // tính BMI
-    function BMI(mass, height) {
-        bmi = mass / (height * height);
-        return bmi;
+    function CaculatorBMI(persion1, persion2) {
+        bmi1 = persion1.mass / (persion1.height * persion1.height);
+        bmi2 = persion2.mass / (persion2.height * persion2.height);
+        return bmi1 > bmi2;
     }
 
+    // Data 1: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1.95m tall.
+    var data1_mark = {
+        mass: 78,
+        height: 1.69
+    };
+    var data1_john = {
+        mass: 92,
+        height: 1.95
+    };
+    console.log("code 1 data 1: " + CaculatorBMI(data1_mark, data1_john));
 
-    // so sánh BMI
-    function compareBMI(massMark, heightMark, massJohn, heightJohn) {
-        var markHigherBMI = false;
-        bmi1 = BMI(massMark, heightMark);
-        bmi2 = BMI(massJohn, heightJohn);
-        if (bmi1 > bmi2) {
-            markHigherBMI = true;
-        }
-        return markHigherBMI;
-    }
+    // Data 2: Marks weights 95 kg and is 1.88 m tall. John weights 85 kg and is 1.76m tall.
+    var data2_mark = {
+        mass: 95,
+        height: 1.88
+    };
+    var data2_john = {
+        mass: 85,
+        height: 1.76
+    };
+    console.log("code 1 data 2: " + CaculatorBMI(data2_mark, data2_john));
 
     // Coding Challenge #2
-    // template literal bmi1
-
-
-    // in ra kết quả
-    function printResult() {
-        if (compareBMI(massMark, heightMark, massJohn, heightJohn)) {
-            console.log("Mark's BMI is higher than John's " + bmi1);
-        } else {
-            console.log("John's BMI is higher than Mark's " + bmi2);
+    // 1. print "Mark's BMI is higher than John's!" or "John's BMI
+    // is higher than Mark's!"
+    function printResult(result) {
+        if (result == true) {
+            console.log("Mark's BMI is higher than John's!");
+        }
+        else {
+            console.log("John's BMI is higher than Mark's!");
         }
     }
 
-    // Test data:
-    // § Data 1: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1.95m tall.
-    massMark = 78;
-    heightMark = 1.69;
-    massJohn = 92;
-    heightJohn = 1.95;
-    console.log("Test data 1:");
-    printResult();
-    // § Data 2: Marks weights 95 kg and is 1.88 m tall. John weights 85 kg and is 1.76m tall.
-    massMark = 95;
-    heightMark = 1.88;
-    massJohn = 85;
-    heightJohn = 1.76;
-    console.log("Test data 2:");
-    printResult();
+    console.log("\ncode 2.1\ndata 1: ");
+    printResult(CaculatorBMI(data1_mark, data1_john));
+    console.log("data 2: ");
+    printResult(CaculatorBMI(data2_mark, data2_john))
+
+    // Use a template literal
+    function printResultUseTemplate(persion1, persion2) {
+        BMI1 = persion1.mass / (persion1.height * persion1.height);
+        BMI2 = persion2.mass / (persion2.height * persion2.height);
+
+        resultMessage = `Mark's BMI (${BMI1}) is ${BMI1 > BMI2 ? "higher" : "lower"} than John's (${BMI2})!`;
+        console.log(resultMessage);
+    }
+
+    console.log("\ncode 2.2 Use a template literal!!!\ndata 1: ");
+    printResultUseTemplate(data1_mark, data1_john);
+    console.log("data 2: ");
+    printResultUseTemplate(data2_mark, data2_john);
+
+
 </script>
 
 <body>
