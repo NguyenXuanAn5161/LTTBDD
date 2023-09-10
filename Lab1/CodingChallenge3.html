@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    // coding challenge 3
+    const Dolphin = [
+        [96, 108, 89],
+        [97, 112, 101],
+        [97, 112, 101]
+    ]
+
+    const Koalas = [
+        [88, 91, 110],
+        [109, 95, 123],
+        [109, 95, 106]
+    ]
+
+    // 1. caculate average score of each team
+    console.log("1.");
+    // function caculate average score of each team
+    function caculateAverageScore(scores) {
+        return scores.reduce((a, b) => a + b, 0) / scores.length;
+    }
+
+    // use loop
+    for (let i = 0; i < Dolphin.length; i++) {
+        const DolphinAverage = caculateAverageScore(Dolphin[i]);
+        console.log(`Dolphin ${i + 1} average is ${DolphinAverage}`);
+        const KoalasAverage = caculateAverageScore(Koalas[i]);
+        console.log(`Koalas ${i + 1} average is ${KoalasAverage}`);
+    }
+
+    // 2. compare average score of each team
+    console.log("\n2.");
+    // function compare average score of each team
+    function compareScore(DolphinAverage, KoalasAverage) {
+        if (DolphinAverage > KoalasAverage) {
+            console.log(`Dolphin win (${DolphinAverage} vs ${KoalasAverage})`);
+        } else if (DolphinAverage < KoalasAverage) {
+            console.log(`Koalas win (${KoalasAverage} vs ${DolphinAverage})`);
+        } else {
+            console.log(`Draw (${DolphinAverage} vs ${KoalasAverage})`);
+        }
+    }
+
+    // use loop
+    for (let i = 0; i < Dolphin.length; i++) {
+        const DolphinAverage = caculateAverageScore(Dolphin[i]);
+        const KoalasAverage = caculateAverageScore(Koalas[i]);
+        compareScore(DolphinAverage, KoalasAverage);
+    }
+
+    // 3. Include a requirement for a minimum score of 100. With this rule, a
+    // team only wins if it has a higher score than the other team, and the same time a
+    // score of at least 100 points
+    console.log("\n3. and 4.");
+    // function compare average score of each team with minimum score
+    function compareScoreWithMinumum(DolphinAverage, KoalasAverage) {
+        if (DolphinAverage < 100 && KoalasAverage < 100) {
+            console.log(`No team wins the trophy because both teams have a total score of less than 100 (${DolphinAverage} vs ${KoalasAverage})`);
+        } else if (DolphinAverage > KoalasAverage && DolphinAverage >= 100) {
+            console.log(`Dolphin win (${DolphinAverage} vs ${KoalasAverage})`);
+        } else if (DolphinAverage < KoalasAverage && KoalasAverage >= 100) {
+            console.log(`Koalas win (${KoalasAverage} vs ${DolphinAverage})`);
+        } else {
+            console.log(`Draw (${DolphinAverage} vs ${KoalasAverage})`);
+        }
+    }
+
+    for (let i = 0; i < Dolphin.length; i++) {
+        const DolphinAverage = caculateAverageScore(Dolphin[i]);
+        const KoalasAverage = caculateAverageScore(Koalas[i]);
+        compareScoreWithMinumum(DolphinAverage, KoalasAverage);
+    }
+
+
+</script>
+
+<body>
+
+</body>
+
+</html>

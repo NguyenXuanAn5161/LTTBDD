@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        console.log("Coding Challenge 5");
+        // data 1
+        s1 = [44, 23, 71];
+        s2 = [65, 54, 49];
+        // data 2
+        s3 = [85, 54, 41];
+        s4 = [23, 34, 27];
+        // function caculate average score of each team
+        calcAvegare = (num) => {
+            let sum = 0;
+            for (let i = 0; i < num.length; i++) {
+                sum += num[i];
+            }
+            return sum / num.length;
+        }
+
+        // caculate average score of each team
+        var score1 = calcAvegare(s1);
+        var score2 = calcAvegare(s2);
+
+        function checkWinner(score1, score2) {
+            if (score1 >= score2 * 2) {
+                console.log(`Dolphins win (${score1} vs. ${score2})`);
+            } else if (score2 >= score1 * 2) {
+                console.log(`Koalas win (${score2} vs. ${score1})`);
+            } else {
+                console.log(`No team wins`);
+            }
+        }
+
+        // data 1
+        score1 = calcAvegare(s1);
+        score2 = calcAvegare(s2);
+        checkWinner(score1, score2);
+
+        // data 2
+        score1 = calcAvegare(s3);
+        score2 = calcAvegare(s4);
+        checkWinner(score1, score2);
+
+    </script>
+</body>
+
+</html>
