@@ -1,5 +1,4 @@
-import { FontAwesome } from "@expo/vector-icons"; // Assuming you are using FontAwesome for the eye icon
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -8,22 +7,14 @@ import {
   View,
 } from "react-native";
 
-export default function CauSau() {
-  const [isPasswordVisible, setPasswordVisibility] = useState(false);
-  const [gender, setGender] = useState(null);
-
-  const togglePasswordVisibility = () => {
-    setPasswordVisibility(!isPasswordVisible);
-  };
-
-  const handleGenderSelection = (selectedGender) => {
-    setGender(selectedGender);
-  };
-
+export default function Cau1_e() {
   return (
     <View style={styles.container}>
       <View style={styles.top}>
-        <Text style={styles.title}>LOGIN</Text>
+        <Text style={{ fontWeight: "bold", fontSize: 40, textAlign: "center" }}>
+          {" "}
+          LOGIN{" "}
+        </Text>
       </View>
       <View style={styles.middle}>
         <TextInput
@@ -36,7 +27,7 @@ export default function CauSau() {
           style={styles.textInput}
           placeholder="Phone"
           textContentType="telephoneNumber"
-          inputMode="numeric"
+          keyboardType="numeric"
         />
         <TextInput
           style={styles.textInput}
@@ -44,48 +35,36 @@ export default function CauSau() {
           textContentType="emailAddress"
           keyboardType="email-address"
         />
-        <View style={styles.passwordContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Password"
-            secureTextEntry={!isPasswordVisible}
-          />
-          <TouchableOpacity
-            onPress={togglePasswordVisibility}
-            style={styles.eyeIcon}
-          >
-            <FontAwesome
-              name={isPasswordVisible ? "eye-slash" : "eye"}
-              size={24}
-              color="black"
-            />
-          </TouchableOpacity>
-        </View>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Password"
+          secureTextEntry={true}
+        />
         <TextInput
           style={styles.textInput}
           placeholder="Birthday"
           textContentType="none"
           inputMode="text"
         />
-        <View style={styles.genderContainer}>
-          <TouchableOpacity
-            onPress={() => handleGenderSelection("male")}
-            style={[
-              styles.genderButton,
-              gender === "male" && styles.selectedGender,
-            ]}
+        <View style={{ flexDirection: "row" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginRight: 50,
+            }}
           >
-            <Text>Male</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => handleGenderSelection("female")}
-            style={[
-              styles.genderButton,
-              gender === "female" && styles.selectedGender,
-            ]}
-          >
-            <Text>Female</Text>
-          </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={styles.radioButton}></View>
+            </TouchableOpacity>
+            <Text style={{ marginLeft: 10 }}>Male</Text>
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <TouchableOpacity>
+              <View style={styles.radioButton}></View>
+            </TouchableOpacity>
+            <Text style={{ marginLeft: 10 }}>Female</Text>
+          </View>
         </View>
       </View>
       <View style={styles.middle1}>
@@ -102,72 +81,57 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#D8EFDF",
-    alignItems: "center",
+    width: "100%",
   },
   top: {
     flex: 0.1,
-    justifyContent: "center",
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 40,
-    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "space-around",
   },
   middle: {
     flex: 0.3,
     alignItems: "center",
     justifyContent: "space-evenly",
-    width: "100%",
+    flexShrink: 0.9,
+    flexGrow: 0.9,
   },
   middle1: {
     flex: 0.3,
     alignItems: "center",
+  },
+  bottom: {
+    flex: 0.1,
+    flexDirection: "row",
     justifyContent: "center",
   },
-  textInput: {
-    height: 45,
-    width: "80%",
-    margin: 10,
-    backgroundColor: "rgba(196, 196, 196, 0.3)",
-    paddingLeft: 30,
-  },
-  passwordContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  eyeIcon: {
-    position: "absolute",
-    right: 10,
-  },
   button: {
-    width: "80%",
-    height: 50,
+    width: "320px",
+    height: "50px",
     borderWidth: 1,
     borderColor: "#E3C000",
+    padding: 3,
     backgroundColor: "#E53935",
     alignItems: "center",
     justifyContent: "center",
   },
   textButton: {
     fontWeight: "bold",
+    textAlign: "center",
     fontSize: 30,
     color: "#D8EFDF",
   },
-  genderContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "80%",
+  textInput: {
+    height: 45,
+    width: 320,
+    margin: 1,
+    backgroundColor: "rgba(196, 196, 196, 0.3)",
+    paddingLeft: 30,
   },
-  genderButton: {
-    width: "48%",
-    height: 40,
+  radioButton: {
+    width: 20,
+    height: 20,
     borderWidth: 2,
     borderColor: "#000000",
-    borderRadius: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  selectedGender: {
-    backgroundColor: "#000000",
+    borderRadius: 15,
   },
 });
