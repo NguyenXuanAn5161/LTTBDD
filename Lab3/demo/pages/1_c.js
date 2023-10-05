@@ -1,3 +1,4 @@
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -5,31 +6,32 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { default as lock } from "../assets/lock-152879-1.png";
-import { default as mail } from "../assets/mail-2935365-1.png";
 
-export default function Cau1_c() {
+export default function Cau_1c() {
   return (
     <View style={styles.container}>
       <View style={styles.textGroup}>
-        <img src={lock} alt="Logo" />
-        <Text style={{ fontWeight: "bold", fontSize: "36px", textAlign: "center" }}>
-          {" "}FORGET PASSWORD{" "}
-        </Text>
-        <Text style={{ fontWeight: "bold", textAlign: "center" }}>
-          Provide your account’s email for which you want to reset your password
+        <Text style={styles.title}>CODE</Text>
+        <Text style={styles.subtitle}>VERIFICATION</Text>
+        <Text style={styles.info}>
+          Enter one-time password sent to +849092605798
         </Text>
       </View>
-      <View>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Email"
-          inlineImageLeft={mail}
-        />
+      <View style={styles.groupTextInput}>
+        {Array(6)
+          .fill()
+          .map((_, index) => (
+            <TextInput
+              key={index}
+              style={styles.textInput}
+              keyboardType="numeric"
+              maxLength={1}
+            />
+          ))}
       </View>
-      <View style={{ flex: 0.3, alignItems: "center" }}>
+      <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.textButton}>NEXT</Text>
+          <Text style={styles.textButton}>VERIFY CODE</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -39,38 +41,58 @@ export default function Cau1_c() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundImage:
-      "linear-gradient(180deg, #C7F4F6, #D1F4F6, #E5F4F5, #00CCF9)",
+    backgroundColor: "#C7F4F6",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  textGroup: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 60,
+  },
+  subtitle: {
+    fontWeight: "bold",
+    fontSize: 30,
+  },
+  info: {
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  groupTextInput: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginVertical: 20,
+  },
+  textInput: {
+    height: 45,
+    width: 45,
+    margin: 5,
+    borderWidth: 1,
+    borderColor: "#000",
+    borderRadius: 5,
+    textAlign: "center",
+    fontSize: 20,
+  },
+  buttonContainer: {
+    alignItems: "center",
+  },
+  button: {
+    width: 320,
+    height: 50,
+    borderWidth: 1,
+    borderColor: "#E3C000",
+    backgroundColor: "#E3C000",
+    borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
-  textGroup: {
-    flex: 0.6,
-    alignItems: "center",
-    justifyContent: "space-around",
-    margin: "20px",
-  },
-  button: {
-    width: "320px",
-    height: "50px",
-    border: "1px solid #E3C000",
-    padding: "5px",
-    backgroundColor: "#E3C000",
-    borderRadius: "10px",
-  },
   textButton: {
     fontWeight: "bold",
-    textAlign: "center",
-    fontSize: "30px",
-  },
-  textInput: {
-    marginLeft: 20,
-    width: 30,
-    height: 40,
-    width: 320,
-    margin: 12,
-    paddingLeft: 50,
-    backgroundColor: "#C4C4C4",
-    border: "3px solid #524f4e",
+    fontSize: 20,
+    color: "#fff",
   },
 });
