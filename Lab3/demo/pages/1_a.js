@@ -3,7 +3,7 @@ import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import logo from "../assets/round.png";
 
-const cau_hai = () => {
+export default function Cau1_a() {
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -35,7 +35,7 @@ const cau_hai = () => {
       </view>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -66,5 +66,3 @@ const styles = StyleSheet.create({
     width: "200px",
   },
 });
-
-export default cau_hai;
