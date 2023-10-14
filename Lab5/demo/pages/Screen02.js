@@ -2,7 +2,6 @@ import * as React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Screen02({ navigation, route }) {
-  // const [postText, setPostText] = React.useState("");
   const sourcePhoneImageColor = {
     "#cf2c24": require("../assets/vs_red.png"),
     "#244999": require("../assets/vs_blue.png"),
@@ -10,7 +9,9 @@ export default function Screen02({ navigation, route }) {
     "#202228": require("../assets/vs_black.png"),
   };
 
-  const [phoneColor, setPhoneColor] = React.useState("#244999"); // set default phone color
+  const [phoneColor, setPhoneColor] = React.useState(
+    route.params?.post || "#244999"
+  ); // set default phone color
   const [phoneImage, setPhoneImage] = React.useState("#244999"); // set default phone image
 
   const changePhoneColor = (phoneColor) => {
@@ -51,32 +52,20 @@ export default function Screen02({ navigation, route }) {
         </View>
         <Pressable
           style={styles.btnX}
-          onPress={() => navigation.navigate("Screen01")}
+          onPress={() => {
+            // navigation.setParams({ post: phoneColor });
+            // navigation.goBack();
+            navigation.navigate({
+              name: "Screen01",
+              params: { post: phoneColor },
+              merge: true,
+            });
+          }}
         >
           <Text style={styles.btnText}>xong</Text>
         </Pressable>
       </View>
     </View>
-    // <>
-    //   <TextInput
-    //     multiline
-    //     placeholder="What's on your mind?"
-    //     style={{ height: 200, padding: 10, backgroundColor: "white" }}
-    //     value={postText}
-    //     onChangeText={setPostText}
-    //   />
-    //   <Button
-    //     title="Done"
-    //     onPress={() => {
-    //       // Pass and merge params back to home screen
-    //       navigation.navigate({
-    //         name: "Screen01",
-    //         params: { post: postText },
-    //         merge: true,
-    //       });
-    //     }}
-    //   />
-    // </>
   );
 }
 

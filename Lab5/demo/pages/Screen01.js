@@ -3,12 +3,23 @@ import { AiOutlineRight } from "react-icons/ai";
 import { Button, Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Screen01({ navigation, route }) {
+  // set default phone color
+  if (!route.params?.post) {
+    route.params = { post: "#244999" };
+  }
+
   React.useEffect(() => {
     if (route.params?.post) {
-      // Post updated, do something with `route.params.post`
-      // For example, send the post to the server
+      console.log("log: ", route.params?.post);
     }
   }, [route.params?.post]);
+
+  const sourcePhoneImageColor = {
+    "#cf2c24": require("../assets/vs_red.png"),
+    "#244999": require("../assets/vs_blue.png"),
+    "#e3d8de": require("../assets/vs_silver.png"),
+    "#202228": require("../assets/vs_black.png"),
+  };
 
   return (
     <View style={styles.container}>
@@ -16,7 +27,7 @@ export default function Screen01({ navigation, route }) {
         <Image
           style={styles.vsBlue}
           contentFit="cover"
-          source={require("../assets/vs_blue.png")}
+          source={sourcePhoneImageColor[route.params?.post]}
         />
       </View>
       <View style={styles.cInfomation}>
@@ -46,13 +57,6 @@ export default function Screen01({ navigation, route }) {
         <Button title="CHỌN MUA" />
       </View>
     </View>
-    // <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-    //   <Button
-    //     title="Screen02"
-    //     onPress={() => navigation.navigate("Screen02")}
-    //   />
-    //   <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
-    // </View>
   );
 }
 
