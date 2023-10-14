@@ -3,13 +3,27 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Screen02({ navigation, route }) {
   // const [postText, setPostText] = React.useState("");
+  const sourcePhoneImageColor = {
+    "#cf2c24": require("../assets/vs_red.png"),
+    "#244999": require("../assets/vs_blue.png"),
+    "#e3d8de": require("../assets/vs_silver.png"),
+    "#202228": require("../assets/vs_black.png"),
+  };
+
+  const [phoneColor, setPhoneColor] = React.useState("#244999"); // set default phone color
+  const [phoneImage, setPhoneImage] = React.useState("#244999"); // set default phone image
+
+  const changePhoneColor = (phoneColor) => {
+    setPhoneColor(phoneColor);
+    setPhoneImage(phoneImage);
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.phoneInformation}>
         <Image
           style={styles.Cimage}
-          source={require("../assets/vs_blue.png")}
+          source={sourcePhoneImageColor[phoneColor]}
         />
         <Text style={[styles.titlePhone]}>
           Điện Thoại Vsmart Joy 3 - Hàng chính hãng
@@ -18,10 +32,22 @@ export default function Screen02({ navigation, route }) {
       <View>
         <Text style={styles.txt}>Chọn một màu bên dưới:</Text>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <View style={[styles.boxColor, { backgroundColor: "#cf2c24" }]} />
-          <View style={[styles.boxColor, { backgroundColor: "#244999" }]} />
-          <View style={[styles.boxColor, { backgroundColor: "#e3d8de" }]} />
-          <View style={[styles.boxColor, { backgroundColor: "#202228" }]} />
+          <Pressable
+            style={[styles.boxColor, { backgroundColor: "#cf2c24" }]}
+            onPress={() => changePhoneColor("#cf2c24")}
+          />
+          <Pressable
+            style={[styles.boxColor, { backgroundColor: "#244999" }]}
+            onPress={() => changePhoneColor("#244999")}
+          />
+          <Pressable
+            style={[styles.boxColor, { backgroundColor: "#e3d8de" }]}
+            onPress={() => changePhoneColor("#e3d8de")}
+          />
+          <Pressable
+            style={[styles.boxColor, { backgroundColor: "#202228" }]}
+            onPress={() => changePhoneColor("#202228")}
+          />
         </View>
         <Pressable
           style={styles.btnX}
@@ -56,7 +82,7 @@ export default function Screen02({ navigation, route }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "pink",
+    backgroundColor: "#C4C4C4",
     flex: 1,
     width: "100%",
     height: "100%",
