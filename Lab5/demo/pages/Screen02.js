@@ -12,11 +12,9 @@ export default function Screen02({ navigation, route }) {
   const [phoneColor, setPhoneColor] = React.useState(
     route.params?.post || "#244999"
   ); // set default phone color
-  const [phoneImage, setPhoneImage] = React.useState("#244999"); // set default phone image
 
   const changePhoneColor = (phoneColor) => {
     setPhoneColor(phoneColor);
-    setPhoneImage(phoneImage);
   };
 
   return (
@@ -53,8 +51,6 @@ export default function Screen02({ navigation, route }) {
         <Pressable
           style={styles.btnX}
           onPress={() => {
-            // navigation.setParams({ post: phoneColor });
-            // navigation.goBack();
             navigation.navigate({
               name: "Screen01",
               params: { post: phoneColor },

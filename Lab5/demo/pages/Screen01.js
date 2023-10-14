@@ -44,7 +44,13 @@ export default function Screen01({ navigation, route }) {
       </View>
       <Pressable
         style={styles.muChnMu}
-        onPress={() => navigation.navigate("Screen02")}
+        onPress={() => {
+          navigation.navigate({
+            name: "Screen02",
+            params: { post: route.params?.post },
+            merge: true,
+          });
+        }}
       >
         <View style={styles.centeredContent}>
           <Text style={styles.textContent}>4 MÀU-CHỌN MÀU</Text>
