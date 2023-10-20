@@ -2,64 +2,28 @@ import * as React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function DetailProduct({ navigation, route }) {
-  const sourcePhoneImageColor = {
-    "#cf2c24": require("../assets/vs_red.png"),
-    "#244999": require("../assets/vs_blue.png"),
-    "#e3d8de": require("../assets/vs_silver.png"),
-    "#202228": require("../assets/vs_black.png"),
-  };
-
-  const [phoneColor, setPhoneColor] = React.useState(
-    route.params?.post || "#244999"
-  ); // set default phone color
-
-  const changePhoneColor = (phoneColor) => {
-    setPhoneColor(phoneColor);
-  };
-
   return (
     <View style={styles.container}>
-      <View style={styles.phoneInformation}>
+      <View style={styles.cImage}>
         <Image
-          style={styles.Cimage}
-          source={sourcePhoneImageColor[phoneColor]}
-        />
-        <Text style={[styles.titlePhone]}>
-          Điện Thoại Vsmart Joy 3 - Hàng chính hãng
-        </Text>
+          style={styles.bikeImage}
+          source={require("../assets/bike_1.png")}
+        ></Image>
       </View>
-      <View>
-        <Text style={styles.txt}>Chọn một màu bên dưới:</Text>
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Pressable
-            style={[styles.boxColor, { backgroundColor: "#cf2c24" }]}
-            onPress={() => changePhoneColor("#cf2c24")}
-          />
-          <Pressable
-            style={[styles.boxColor, { backgroundColor: "#244999" }]}
-            onPress={() => changePhoneColor("#244999")}
-          />
-          <Pressable
-            style={[styles.boxColor, { backgroundColor: "#e3d8de" }]}
-            onPress={() => changePhoneColor("#e3d8de")}
-          />
-          <Pressable
-            style={[styles.boxColor, { backgroundColor: "#202228" }]}
-            onPress={() => changePhoneColor("#202228")}
-          />
-        </View>
-        <Pressable
-          style={styles.btnX}
-          onPress={() => {
-            navigation.navigate({
-              name: "homePage",
-              params: { post: phoneColor },
-              merge: true,
-            });
-          }}
-        >
-          <Text style={styles.btnText}>xong</Text>
-        </Pressable>
+      <Text style={styles.bikeTitle}>Allez Sport</Text>
+      <View style={styles.cPrice}>
+        <Text style={[styles.bikePriceDiscount]}>15% off</Text>
+        <Text style={[styles.bikePriceDiscounted]}>$879</Text>
+        <Text style={[styles.bikePriceActual]}>$1999</Text>
+      </View>
+      <Text style={[styles.bikePriceDiscount, styles.txtDes]}>Description</Text>
+      <Text style={[styles.txtDes, styles.txtMoTa]}>
+        It is a very important form of writing as we write almost everything in
+        paragraphs, be it an answer, essay, story, emails, etc.
+      </Text>
+      <View style={[styles.cBtn]}>
+        {/* <Text style={[styles.txtBtn]}>*</Text> */}
+        <Pressable style={[styles.btn]}>add to card</Pressable>
       </View>
     </View>
   );
@@ -67,7 +31,7 @@ export default function DetailProduct({ navigation, route }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#C4C4C4",
+    backgroundColor: "pink",
     flex: 1,
     width: "100%",
     height: "100%",
@@ -75,44 +39,51 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     // justifyContent: "center",
   },
-  phoneInformation: {
-    flexDirection: "row",
+  cImage: {
+    margin: "2%",
     backgroundColor: "#fff",
-    height: "30%",
+    width: "96%",
+    height: "50%",
+    borderRadius: 10,
   },
-  Cimage: {
-    resizeMode: "contain", // Giữ nguyên tỷ lệ khung hình
-    width: "50%", // Để hình ảnh vừa khớp với cImage
-    height: "100%",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  titlePhone: {
-    marginTop: 10,
-    marginRight: 5,
-    fontWeight: "bold",
-    fontFamily: "Roboto-Bold",
+  bikeImage: { width: "100%", height: "100%", resizeMode: "contain" },
+  bikeTitle: { margin: "2%", fontSize: 28, fontWeight: "bold" },
+  cPrice: { marginHorizontal: "2%", display: 1, flexDirection: "row" },
+  bikePriceDiscount: {
     fontSize: 20,
-  },
-  txt: { marginLeft: 10, marginTop: 10, fontSize: 20 },
-  boxColor: {
-    width: 70,
-    height: 70,
-    margin: 10,
-  },
-  btnX: {
-    backgroundColor: "#4d6dc1",
-    margin: 20,
-    borderRadius: 5,
-    height: 40,
+    color: "gray",
+    marginRight: 10,
     textTransform: "uppercase",
-    justifyContent: "center",
-    alignItems: "center",
   },
-  btnText: {
-    fontWeight: "bold",
-    fontFamily: "Roboto-Bold",
+  bikePriceDiscounted: {
     fontSize: 20,
-    color: "#fff",
+    color: "gray",
   },
+  bikePriceActual: {
+    marginLeft: 20,
+    fontSize: 20,
+    color: "#000",
+    textDecorationLine: "line-through",
+  },
+  txtDes: {
+    marginHorizontal: "2%",
+    marginTop: 20,
+    color: "#000",
+    fontWeight: 500,
+  },
+  txtMoTa: {
+    color: "gray",
+    fontSize: 18,
+  },
+  cBtn: {
+    marginTop: 20,
+    marginHorizontal: "2%",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "red",
+    width: "75%",
+    height: 50,
+    borderRadius: 50,
+  },
+  btn: { textTransform: "capitalize", fontSize: 20, color: "#fff" },
 });
