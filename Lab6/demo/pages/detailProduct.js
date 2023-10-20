@@ -23,7 +23,14 @@ export default function DetailProduct({ navigation, route }) {
       </Text>
       <View style={[styles.cBtn]}>
         {/* <Text style={[styles.txtBtn]}>*</Text> */}
-        <Pressable style={[styles.btn]}>add to card</Pressable>
+        <Pressable
+          style={[styles.btn]}
+          onPress={() => {
+            navigation.navigate({ name: "HomePage" });
+          }}
+        >
+          add to card
+        </Pressable>
       </View>
     </View>
   );
