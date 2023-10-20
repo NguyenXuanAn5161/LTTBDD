@@ -1,5 +1,12 @@
 import * as React from "react";
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function ListProduct({ navigation, route }) {
   const [ListProduct, setListProduct] = React.useState([
@@ -48,11 +55,18 @@ export default function ListProduct({ navigation, route }) {
   ]);
 
   const renderListProduct = ({ item }) => (
-    <View style={styles.cardProduct}>
+    <TouchableOpacity
+      style={styles.cardProduct}
+      onPress={() => {
+        navigation.navigate({
+          name: "DetailProduct",
+        });
+      }}
+    >
       <Image style={styles.bikeImage} source={item.image} />
       <Text style={styles.bikeTitle}>{item.title}</Text>
       <Text style={styles.bikePrice}>${item.price}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
