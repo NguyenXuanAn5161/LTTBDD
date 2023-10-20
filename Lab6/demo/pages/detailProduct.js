@@ -1,32 +1,50 @@
 import * as React from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { AiOutlineHeart } from "react-icons/ai";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function DetailProduct({ navigation, route }) {
+  // dùng để hiển thị một hint khi người dùng scroll xuống dưới. false: không hiển thị hint
+  const [showScrollHint, setShowScrollHint] = React.useState(false);
+
   return (
     <View style={styles.container}>
       <View style={styles.cImage}>
         <Image
           style={styles.bikeImage}
-          source={require("../assets/bike_1.png")}
+          source={route.params?.post?.image}
         ></Image>
       </View>
-      <Text style={styles.bikeTitle}>Allez Sport</Text>
+      <Text style={styles.bikeTitle}>{route.params?.post?.title}</Text>
       <View style={styles.cPrice}>
-        <Text style={[styles.bikePriceDiscount]}>15% off</Text>
-        <Text style={[styles.bikePriceDiscounted]}>$879</Text>
-        <Text style={[styles.bikePriceActual]}>$1999</Text>
+        <Text style={[styles.bikePriceDiscount]}>
+          {route.params?.post?.discount}% off
+        </Text>
+        <Text style={[styles.bikePriceDiscounted]}>
+          ${route.params?.post?.price} {/*chua tinh duoc giam gia */}
+        </Text>
+        <Text style={[styles.bikePriceActual]}>
+          ${route.params?.post?.price}
+        </Text>
       </View>
       <Text style={[styles.bikePriceDiscount, styles.txtDes]}>Description</Text>
-      <Text style={[styles.txtDes, styles.txtMoTa]}>
-        It is a very important form of writing as we write almost everything in
-        paragraphs, be it an answer, essay, story, emails, etc.
-      </Text>
-      <View style={[styles.cBtn]}>
-        {/* <Text style={[styles.txtBtn]}>*</Text> */}
+      <ScrollView style={styles.cDes}>
+        <Text style={[styles.txtDes, styles.txtMoTa]}>
+          {route.params?.post?.description}
+        </Text>
+      </ScrollView>
+      <View style={[styles.cBtnHeart]}>
+        <AiOutlineHeart style={styles.heart} />
         <Pressable
-          style={[styles.btn]}
+          style={[styles.cBtn, styles.btn]}
           onPress={() => {
-            navigation.navigate({ name: "HomePage" });
+            navigation.navigate({ name: "ListProduct" });
           }}
         >
           add to card
@@ -82,6 +100,13 @@ const styles = StyleSheet.create({
     color: "gray",
     fontSize: 18,
   },
+  cBtnHeart: {
+    display: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  heart: { marginTop: 20, fontSize: 50 },
   cBtn: {
     marginTop: 20,
     marginHorizontal: "2%",
