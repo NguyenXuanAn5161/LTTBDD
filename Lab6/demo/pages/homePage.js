@@ -14,7 +14,14 @@ export default function HomePage({ navigation, route }) {
         ></Image>
       </View>
       <Text style={[styles.setTxt, styles.txtTitle]}>power bike shop</Text>
-      <Pressable style={styles.btnGS}>
+      <Pressable
+        style={styles.btnGS}
+        onPress={() => {
+          navigation.navigate({
+            name: "ListProduct",
+          });
+        }}
+      >
         <Text style={[styles.txtBtn]}>get started</Text>
       </Pressable>
     </View>

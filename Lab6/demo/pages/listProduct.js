@@ -1,65 +1,78 @@
 import * as React from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 
 export default function ListProduct({ navigation, route }) {
-  const sourcePhoneImageColor = {
-    "#cf2c24": require("../assets/vs_red.png"),
-    "#244999": require("../assets/vs_blue.png"),
-    "#e3d8de": require("../assets/vs_silver.png"),
-    "#202228": require("../assets/vs_black.png"),
-  };
+  const [ListProduct, setListProduct] = React.useState([
+    {
+      id: "1",
+      title: "Pinarello",
+      price: 269,
+      image: require("../assets/bifour_-removebg-preview.png"),
+    },
+    {
+      id: "2",
+      title: "Trek FX 2",
+      price: 189,
+      image: require("../assets/bione-removebg-preview.png"),
+    },
+    {
+      id: "3",
+      title: "Giant Talon 3",
+      price: 2999,
+      image: require("../assets/bithree_removebg-preview.png"),
+    },
+    {
+      id: "4",
+      title: "Diverge Sport",
+      price: 1999,
+      image: require("../assets/bitwo-removebg-preview.png"),
+    },
+    {
+      id: "5",
+      title: "Allez Sport",
+      price: 879,
+      image: require("../assets/bike_1.png"),
+    },
+    {
+      id: "6",
+      title: "Bianchi Oltre",
+      price: 999,
+      image: require("../assets/bike_2.png"),
+    },
+    {
+      id: "7",
+      title: "Electra Townie",
+      price: 8939,
+      image: require("../assets/bike_3.png"),
+    },
+  ]);
 
-  const [phoneColor, setPhoneColor] = React.useState(
-    route.params?.post || "#244999"
-  ); // set default phone color
-
-  const changePhoneColor = (phoneColor) => {
-    setPhoneColor(phoneColor);
-  };
+  const renderListProduct = ({ item }) => (
+    <View style={styles.cardProduct}>
+      <Image style={styles.bikeImage} source={item.image} />
+      <Text style={styles.bikeTitle}>{item.title}</Text>
+      <Text style={styles.bikePrice}>${item.price}</Text>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
-      <View style={styles.phoneInformation}>
-        <Image
-          style={styles.Cimage}
-          source={sourcePhoneImageColor[phoneColor]}
-        />
-        <Text style={[styles.titlePhone]}>
-          Điện Thoại Vsmart Joy 3 - Hàng chính hãng
-        </Text>
+      <Text style={styles.cTxt}>The world’s Best Bike</Text>
+      <View style={styles.cList}>
+        <Text style={styles.txtList}>All</Text>
+        <Text style={styles.txtList}>Roadbike</Text>
+        <Text style={styles.txtList}>Mountain</Text>
       </View>
-      <View>
-        <Text style={styles.txt}>Chọn một màu bên dưới:</Text>
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Pressable
-            style={[styles.boxColor, { backgroundColor: "#cf2c24" }]}
-            onPress={() => changePhoneColor("#cf2c24")}
-          />
-          <Pressable
-            style={[styles.boxColor, { backgroundColor: "#244999" }]}
-            onPress={() => changePhoneColor("#244999")}
-          />
-          <Pressable
-            style={[styles.boxColor, { backgroundColor: "#e3d8de" }]}
-            onPress={() => changePhoneColor("#e3d8de")}
-          />
-          <Pressable
-            style={[styles.boxColor, { backgroundColor: "#202228" }]}
-            onPress={() => changePhoneColor("#202228")}
-          />
-        </View>
-        <Pressable
-          style={styles.btnX}
-          onPress={() => {
-            navigation.navigate({
-              name: "DetailProduct",
-              params: { post: phoneColor },
-              merge: true,
-            });
-          }}
-        >
-          <Text style={styles.btnText}>xong</Text>
-        </Pressable>
+
+      <View style={styles.ListProduct}>
+        <FlatList
+          // horizontal={true}
+          showsHorizontalScrollIndicator={true}
+          data={ListProduct}
+          renderItem={renderListProduct}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+        />
       </View>
     </View>
   );
@@ -67,52 +80,76 @@ export default function ListProduct({ navigation, route }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#C4C4C4",
     flex: 1,
-    width: "100%",
-    height: "100%",
-    overflow: "hidden",
-    // alignItems: "center",
-    // justifyContent: "center",
-  },
-  phoneInformation: {
-    flexDirection: "row",
     backgroundColor: "#fff",
-    height: "30%",
   },
-  Cimage: {
-    resizeMode: "contain", // Giữ nguyên tỷ lệ khung hình
-    width: "50%", // Để hình ảnh vừa khớp với cImage
-    height: "100%",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+  cTxt: {
+    marginTop: 8,
+    marginLeft: 15,
+    textTransform: "capitalize",
+    color: "#E94141",
+    fontFamily: "Ubuntu",
+    fontSize: 28,
+    fontWeight: "bold",
   },
-  titlePhone: {
+  cList: {
     marginTop: 10,
-    marginRight: 5,
-    fontWeight: "bold",
-    fontFamily: "Roboto-Bold",
-    fontSize: 20,
+    marginBottom: 5,
+    marginHorizontal: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  txt: { marginLeft: 10, marginTop: 10, fontSize: 20 },
-  boxColor: {
-    width: 70,
-    height: 70,
-    margin: 10,
-  },
-  btnX: {
-    backgroundColor: "#4d6dc1",
-    margin: 20,
+  txtList: {
+    textAlign: "center",
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: "red",
+    paddingVertical: 4,
+    width: 85,
     borderRadius: 5,
-    height: 40,
-    textTransform: "uppercase",
-    justifyContent: "center",
-    alignItems: "center",
   },
-  btnText: {
-    fontWeight: "bold",
-    fontFamily: "Roboto-Bold",
+  ListProduct: {
+    marginTop: 10,
+    // backgroundColor: "pink",
+    borderRadius: 10,
+    height: "100%",
+  },
+  cardProduct: {
+    marginTop: 10,
+    marginHorizontal: "3%",
+    backgroundColor: "pink",
+    width: "44%",
+    height: 240,
+    alignItems: "center",
+    borderRadius: 10,
+    // css shadow
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  bikeImage: {
+    width: "80%",
+    height: "70%",
+    resizeMode: "contain",
+    // width: "100%",
+    // height: "70%",
+    // resizeMode: "stretch",
+  },
+  bikeTitle: {
+    textTransform: "capitalize",
+    fontSize: 25,
+    fontFamily: "Voltaire",
+    fontWeight: "normal",
+  },
+  bikePrice: {
+    textTransform: "capitalize",
     fontSize: 20,
-    color: "#fff",
+    fontFamily: "Voltaire",
+    fontWeight: "normal",
   },
 });
