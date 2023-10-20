@@ -44,7 +44,7 @@ export default function DetailProduct({ navigation, route }) {
         <Pressable
           style={[styles.cBtn, styles.btn]}
           onPress={() => {
-            navigation.navigate({ name: "ListProduct" });
+            navigation.navigate({ name: "HomePage" });
           }}
         >
           add to card
