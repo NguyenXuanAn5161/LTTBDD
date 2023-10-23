@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   FlatList,
   Image,
+  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -15,71 +16,75 @@ export default function ListProduct({ navigation, route }) {
     }
   }, [route.params?.post]); // đoạn [] này là để chạy lại useEffect khi có tham số post thay đổi
 
-  const [ListProduct, setListProduct] = React.useState([
+  const Products = [
     {
       id: "1",
       title: "Pinarello",
       price: 269,
-      discount: 10, // Giả sử giảm giá 10%
-      description:
-        "The Pinarello bike is a high-quality road bike with a sleek and aerodynamic design. It features advanced components and is built for speed and performance. Whether you're a professional racer or a dedicated enthusiast, this bike will not disappoint. With a 10% discount, it's a fantastic deal for such a premium bike.",
+      discount: 10,
+      description: "The Pinarello bike is a high-quality road bike...",
       image: require("../assets/bifour_-removebg-preview.png"),
+      type: "roadbike",
     },
     {
       id: "2",
       title: "Trek FX 2",
       price: 189,
-      discount: 5, // Giả sử giảm giá 5%
-      description:
-        "The Trek FX 2 is a versatile hybrid bike suitable for various riding styles. It's perfect for commuting, fitness, or leisure rides. This bike offers comfort and performance, making it a great choice for riders of all levels. Enjoy a 5% discount on this fantastic all-around bike.",
+      discount: 5,
+      description: "The Trek FX 2 is a versatile hybrid bike...",
       image: require("../assets/bione-removebg-preview.png"),
+      type: "roadbike",
     },
     {
       id: "3",
       title: "Giant Talon 3",
       price: 2999,
-      discount: 15, // Giả sử giảm giá 15%
-      description:
-        "The Giant Talon 3 is a top-tier mountain bike with advanced features. It's designed for the most demanding off-road trails and offers exceptional control and stability. If you're a mountain biking enthusiast, this bike is a must-have. Plus, you can enjoy a generous 15% discount on this high-performance mountain bike.",
+      discount: 15,
+      description: "The Giant Talon 3 is a top-tier mountain bike...",
       image: require("../assets/bithree_removebg-preview.png"),
+      type: "mountain",
     },
     {
       id: "4",
       title: "Diverge Sport",
       price: 1999,
-      discount: 0, // Không giảm giá
-      description:
-        "The Diverge Sport is a versatile gravel bike designed for all terrains. It's equally comfortable on paved roads and rugged trails. With its durable construction and smooth ride, this bike is perfect for adventurers. While there is no discount on this model, its quality speaks for itself.",
+      discount: 0,
+      description: "The Diverge Sport is a versatile gravel bike...",
       image: require("../assets/bitwo-removebg-preview.png"),
+      type: "roadbike",
     },
     {
       id: "5",
       title: "Allez Sport",
       price: 879,
-      discount: 10, // Giả sử giảm giá 10%
-      description:
-        "The Allez Sport is a classic road bike for enthusiasts and beginners. It's known for its lightweight frame and responsive handling, making it a great choice for road racing or casual rides. Grab this iconic bike with a 10% discount and experience the joy of road cycling.",
+      discount: 10,
+      description: "The Allez Sport is a classic road bike...",
       image: require("../assets/bike_1.png"),
+      type: "mountain",
     },
     {
       id: "6",
       title: "Bianchi Oltre",
       price: 999,
-      discount: 20, // Giả sử giảm giá 20%
-      description:
-        "The Bianchi Oltre is an elite road bike known for its speed, style, and precision. It's a favorite among professional cyclists and dedicated riders. With a 20% discount, it's a rare opportunity to own a bike of this caliber and enjoy the ultimate road cycling experience.",
+      discount: 20,
+      description: "The Bianchi Oltre is an elite road bike...",
       image: require("../assets/bike_2.png"),
+      type: "roadbike",
     },
     {
       id: "7",
       title: "Electra Townie",
       price: 8939,
-      discount: 10, // Giả sử giảm giá 10%
-      description:
-        "The Electra Townie is a comfortable cruiser bike designed for urban rides. It features a relaxed riding position and a stylish, retro look. With a 10% discount, you can cruise the city streets in style and comfort on this fantastic cruiser bike.",
+      discount: 10,
+      description: "The Electra Townie is a comfortable cruiser bike...",
       image: require("../assets/bike_3.png"),
+      type: "mountain",
     },
-  ]);
+  ];
+
+  const [ListProduct, setListProduct] = React.useState(Products);
+
+  const [color, setColor] = React.useState(""); // Ban đầu không có màu nền
 
   const renderListProduct = ({ item }) => (
     <TouchableOpacity
@@ -102,9 +107,39 @@ export default function ListProduct({ navigation, route }) {
     <View style={styles.container}>
       <Text style={styles.cTxt}>The world’s Best Bike</Text>
       <View style={styles.cList}>
-        <Text style={styles.txtList}>All</Text>
-        <Text style={styles.txtList}>Roadbike</Text>
-        <Text style={styles.txtList}>Mountain</Text>
+        <Pressable
+          style={[styles.txtList, color === "" ? styles.selectedtype : null]}
+          onPress={() => {
+            setColor("");
+            setListProduct(Products);
+          }}
+        >
+          All
+        </Pressable>
+        <Pressable
+          style={[
+            styles.txtList,
+            color === "roadbike" ? styles.selectedtype : null,
+          ]}
+          onPress={() => {
+            setColor("roadbike");
+            setListProduct(Products.filter((item) => item.type === "roadbike"));
+          }}
+        >
+          Roadbike
+        </Pressable>
+        <Pressable
+          style={[
+            styles.txtList,
+            color === "mountain" ? styles.selectedtype : null,
+          ]}
+          onPress={() => {
+            setColor("mountain");
+            setListProduct(Products.filter((item) => item.type === "mountain"));
+          }}
+        >
+          Mountain
+        </Pressable>
       </View>
 
       <View style={styles.ListProduct}>
@@ -194,5 +229,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "Voltaire",
     fontWeight: "normal",
+  },
+  selectedtype: {
+    backgroundColor: "blue",
+    color: "#fff",
   },
 });
