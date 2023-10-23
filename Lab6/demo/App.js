@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import DetailProduct from "./pages/detailProduct";
 import ListProduct from "./pages/listProduct";
+// import HomePage from "./pages/homePage";
 
 const Stack = createNativeStackNavigator();
 export default function App() {

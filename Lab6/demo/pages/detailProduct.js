@@ -27,7 +27,8 @@ export default function DetailProduct({ navigation, route }) {
           {route.params?.post?.discount}% off
         </Text>
         <Text style={[styles.bikePriceDiscounted]}>
-          ${route.params?.post?.price} {/*chua tinh duoc giam gia */}
+          $
+          {route.params?.post?.price * (1 - route.params?.post?.discount / 100)}
         </Text>
         <Text style={[styles.bikePriceActual]}>
           ${route.params?.post?.price}
