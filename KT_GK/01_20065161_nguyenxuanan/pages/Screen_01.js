@@ -8,7 +8,9 @@ import {
   View,
 } from "react-native";
 
-export default function Screen_01() {
+export default function Screen_01({ navigation, route }) {
+  const [userName, setUserName] = React.useState("");
+
   return (
     <View style={styles.container}>
       <View style={styles.cNote}>
@@ -19,10 +21,18 @@ export default function Screen_01() {
         <TextInput
           style={styles.txtInput}
           placeholder="Enter your name"
-        ></TextInput>
+          onChangeText={setUserName}
+          value={userName}
+        />
       </Pressable>
-      <Pressable style={styles.cBtn}>
-        <Text style={styles.txtBtn}>get started -></Text>
+      <Pressable
+        style={styles.cBtn}
+        onPress={() => {
+          navigation.navigate("Screen_02", { userName });
+          console.log(userName);
+        }}
+      >
+        <Text style={styles.txtBtn}>get started -&gt;</Text>
       </Pressable>
     </View>
   );
