@@ -1,9 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet } from "react-native";
-import Screen_01 from "./pages/Screen_01";
-import Screen_02 from "./pages/Screen_02";
-import Screen_03 from "./pages/Screen_03";
+import Screen01 from "./pages/Screen_01";
+import Screen02 from "./pages/Screen_02";
+import Screen03 from "./pages/Screen_03";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -12,18 +12,18 @@ export default function App() {
       <Stack.Navigator mode="model">
         <Stack.Screen
           options={{ headerShown: false }}
-          name="Screen_01"
-          component={Screen_01}
+          name="Screen01"
+          component={Screen01}
         />
         <Stack.Screen
           options={{ headerShown: false }}
-          name="Screen_02"
-          component={Screen_02}
+          name="Screen02"
+          component={Screen02}
         />
         <Stack.Screen
           options={{ headerShown: false }}
-          name="Screen_03"
-          component={Screen_03}
+          name="Screen03"
+          component={Screen03}
         />
       </Stack.Navigator>
     </NavigationContainer>

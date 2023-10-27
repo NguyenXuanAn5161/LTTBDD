@@ -1,39 +1,50 @@
-import * as React from "react";
+import { useState } from "react";
 import {
   Image,
-  Pressable,
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
-export default function Screen_01({ navigation, route }) {
-  const [userName, setUserName] = React.useState("");
+export default function Home({ navigation, route }) {
+  const [name, setName] = useState(null);
 
   return (
     <View style={styles.container}>
-      <View style={styles.cNote}>
-        <Image style={styles.img} source={require("../assets/icon1.png")} />
+      <View style={styles.ImageContainer}>
+        <Image
+          style={styles.img}
+          source={require("../assets/icon1.png")}
+          resizeMode="contain"
+        ></Image>
       </View>
-      <Text style={styles.txtTilte}>manage your task</Text>
-      <Pressable style={styles.cInput}>
-        <TextInput
-          style={styles.txtInput}
-          placeholder="Enter your name"
-          onChangeText={setUserName}
-          value={userName}
-        />
-      </Pressable>
-      <Pressable
-        style={styles.cBtn}
-        onPress={() => {
-          navigation.navigate("Screen_02", { userName });
-          console.log(userName);
-        }}
+      <View style={styles.titleTextContainer}>
+        <Text style={styles.titleText}>MANAGE YOUR{"\n"}TASK</Text>
+      </View>
+      <View style={styles.inputContainer}>
+        <View style={styles.IconContainer}>
+          <Icon style={styles.Iconn} name="envelope"></Icon>
+        </View>
+        <View style={styles.textInputContainer}>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Enter your name"
+            placeholderTextColor={"#3333"}
+            onChangeText={setName}
+          />
+        </View>
+      </View>
+
+      <TouchableOpacity
+        style={styles.StartBtn}
+        onPress={() => navigation.push("Screen02", { name: name })}
       >
-        <Text style={styles.txtBtn}>get started -&gt;</Text>
-      </Pressable>
+        <Text style={styles.btnText}>GET STARTED</Text>
+        <Icon style={styles.iconBtn} name="arrow-right"></Icon>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -41,42 +52,72 @@ export default function Screen_01({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f9fafc",
     alignItems: "center",
-    // justifyContent: "center",
+    justifyContent: "space-around",
   },
-  cNote: {
-    marginTop: "10%",
-    width: "70%",
-    height: "40%",
-    backgroundColor: "pink",
+  ImageContainer: {
+    width: "90%",
+    height: "50%",
     justifyContent: "center",
     alignItems: "center",
   },
-  img: { width: "99%", height: "99%" },
-  txtTilte: {
-    marginTop: 50,
-    width: "60%",
-    fontSize: 30,
-    fontWeight: 700,
-    textTransform: "uppercase",
-    textAlign: "center",
-    color: "purple",
+  img: {
+    width: "80%",
+    height: "100%",
   },
-  cInput: { width: "80%", borderWidth: 1, borderRadius: 15, marginTop: 20 },
-  txtInput: { padding: 10, color: "gray", fontSize: 20 },
-  cBtn: {
-    marginTop: 80,
+  titleTextContainer: {
+    width: "100%",
+  },
+  titleText: {
+    textAlign: "center",
+    color: "#825edb",
+    fontSize: 25,
+    fontWeight: "bold",
+  },
+  inputContainer: {
+    width: "90%",
+    height: 40,
+    flexDirection: "row",
     borderWidth: 1,
-    padding: 10,
-    width: "50%",
-    borderRadius: 10,
-    backgroundColor: "blue",
+    borderColor: "#d5d6d8",
+    borderRadius: 15,
   },
-  txtBtn: {
-    textAlign: "center",
+  IconContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+  },
+  Iconn: {
     fontSize: 20,
-    textTransform: "uppercase",
+    // ba
+  },
+  textInputContainer: {
+    justifyContent: "center",
+    alignItems: "flex-start",
+    width: "100%",
+    // backgroundColor: 'red'
+  },
+  StartBtn: {
+    backgroundColor: "#00bdd5",
+    width: "40%",
+    height: 45,
+    flexDirection: "row",
+    justifyContent: "center",
+    borderRadius: 10,
+    alignItems: "center",
+    marginBottom: "20%",
+  },
+  btnText: {
     color: "#fff",
+    fontWeight: "500",
+  },
+  iconBtn: {
+    fontWeight: "600",
+    color: "#fff",
+    padding: 5,
+  },
+  inputText: {
+    width: "80%",
   },
 });
