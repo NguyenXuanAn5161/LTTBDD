@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaAngleLeft,
   FaEdit,
@@ -9,13 +9,30 @@ import {
 } from "react-icons/fa";
 import {
   FlatList,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllItems } from "../../redux/actions";
+
 const ListItem = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const todo = useSelector((state) => state.todoApp);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    console.log("todo: ", todo);
+    setData(todo);
+  }, [todo]);
+
+  useEffect(() => {
+    dispatch(getAllItems());
+  }, [dispatch]);
 
   const handleGoScreen = (item) => {
     navigation.navigate("AddItem", { item, title: item ? "EDIT" : "ADD" });
@@ -25,16 +42,17 @@ const ListItem = () => {
     navigation.goBack();
   };
 
-  const data = [
-    { id: 1, name: "Javascript", type: "simple" },
-    { id: 2, name: "ReactJS", type: "medium" },
-    { id: 3, name: "React Native", type: "hard" },
-  ];
+  const [uniqueTypes, setUniqueTypes] = useState([]);
+
+  useEffect(() => {
+    const types = [...new Set(data.map((item) => item.type))];
+    setUniqueTypes(types);
+  }, [data]);
 
   const renderFilter = ({ item }) => {
     return (
       <TouchableOpacity style={styles.btn_filter}>
-        <Text style={styles.txt_btn}>{item.type}</Text>
+        <Text style={styles.txt_btn}>{item}</Text>
       </TouchableOpacity>
     );
   };
@@ -46,7 +64,7 @@ const ListItem = () => {
         <View
           style={{ marginHorizontal: 10, flexDirection: "row", fontSize: 30 }}
         >
-          <TouchableOpacity onPress={() => handleGoScreen(item)}>
+          <TouchableOpacity onPress={() => handleGoScreen(item.id)}>
             <FaEdit style={{ marginRight: 10 }} />
           </TouchableOpacity>
           <TouchableOpacity>
@@ -75,28 +93,33 @@ const ListItem = () => {
       <View style={styles.body}>
         <View style={styles.list_filter}>
           <FlatList
-            data={data}
+            data={uniqueTypes}
             horizontal
             renderItem={renderFilter}
-            key={(item) => item.id}
+            keyExtractor={(item) => item}
+            contentContainerStyle={{ flexGrow: 5 }}
           />
         </View>
-        <View style={styles.list_item}>
-          <FlatList
-            data={data}
-            numColumns={1}
-            renderItem={renderItem}
-            key={(item) => item.id}
-          />
-        </View>
-        <View style={{ flex: 1 }}>
-          <TouchableOpacity
-            style={styles.btn_add}
-            onPress={() => handleGoScreen()}
-          >
-            <FaPlus />
-          </TouchableOpacity>
-        </View>
+        <ScrollView
+          contentContainerStyle={{ width: "100%", alignItems: "center" }}
+        >
+          <View style={styles.list_item}>
+            <FlatList
+              data={data}
+              numColumns={1}
+              renderItem={renderItem}
+              key={(item) => item.id}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <TouchableOpacity
+              style={styles.btn_add}
+              onPress={() => handleGoScreen()}
+            >
+              <FaPlus />
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
       <View style={styles.footer}>Footer</View>
     </View>
