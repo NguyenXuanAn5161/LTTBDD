@@ -17,7 +17,6 @@ const Home = () => {
     <View style={{ flex: 1 }}>
       <View style={styles.header}>Todos App</View>
       <View style={styles.body}>
-        <input style={styles.body_input} type="text" placeholder="Your name" />
         <TouchableOpacity style={styles.btn_Go} onPress={handleGoScreen}>
           <Text style={styles.txt_Go}>GO</Text>
         </TouchableOpacity>
@@ -43,13 +42,6 @@ const styles = StyleSheet.create({
     backgroundColor: "pink",
     justifyContent: "center",
     alignItems: "center",
-  },
-  body_input: {
-    width: "90%",
-    height: 50,
-    fontSize: 30,
-    padding: 5,
-    borderRadius: 10,
   },
   btn_Go: {
     width: "50%",

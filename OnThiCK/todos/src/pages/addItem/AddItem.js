@@ -1,23 +1,40 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import React from "react";
+import React, { useState } from "react";
 import { FaAngleLeft, FaRegUserCircle } from "react-icons/fa";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { useDispatch } from "react-redux";
+import { addItem, editItem } from "../../redux/actions";
 
 const AddItem = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const dispatch = useDispatch();
 
   const { item, title } = route.params;
+  const [updateItem, setUpdateItem] = useState(item || {});
+
+  const handleFinish = () => {
+    if (title === "ADD") {
+      dispatch(addItem(updateItem));
+    } else {
+      dispatch(editItem(item.id, updateItem));
+    }
+    goBack();
+  };
+
   const goBack = () => {
     navigation.goBack();
   };
+
+  const currentYear = new Date().getFullYear();
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.header}>
         <View style={styles.btn_back}>
-          <TouchableOpacity style={styles.back} onPress={goBack}>
+          <Pressable style={styles.back} onPress={goBack}>
             <FaAngleLeft />
-          </TouchableOpacity>
+          </Pressable>
           <View style={{ flexDirection: "row" }}>
             <FaRegUserCircle />
             <Text style={{ fontSize: 20, fontWeight: 700, marginLeft: 10 }}>
@@ -39,17 +56,22 @@ const AddItem = () => {
           {title} YOUR WORK
         </View>
         <View style={styles.input}>
-          <input
-            style={styles.body_input}
+          <TextInput
+            style={styles.text_input}
             type="text"
             placeholder="Your work"
+            value={updateItem.name}
+            onChangeText={(text) =>
+              setUpdateItem({ ...updateItem, name: text })
+            }
           />
-          <TouchableOpacity style={styles.btn_Finish} onPress={goBack}>
+          {/* sử dụng react-native-element-dropdown để tạo dropdown ở đây với giá trị là type trong item được lưu trong redux toolkit */}
+          <Pressable style={styles.btn_Finish} onPress={handleFinish}>
             <Text style={styles.txt_Finish}>Finish</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
-      <View style={styles.footer}>Footer</View>
+      <View style={styles.footer}>&copy; {currentYear}</View>
     </View>
   );
 };
@@ -82,12 +104,13 @@ const styles = StyleSheet.create({
     justifyContentc: "center",
     alignItems: "center",
   },
-  body_input: {
+  text_input: {
     width: "90%",
     height: 50,
     fontSize: 30,
     padding: 5,
     borderRadius: 10,
+    backgroundColor: "white",
   },
   btn_Finish: {
     width: "50%",

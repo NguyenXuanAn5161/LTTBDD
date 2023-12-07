@@ -1,11 +1,10 @@
 import axios from "axios";
-import { getAll } from "./todoSlice";
+import { add, edit, getAll, remove } from "./todoSlice";
 
 const url = "https://65702f6009586eff6640db95.mockapi.io/TodosList";
 
 export const getAllItems = () => async (dispatch) => {
   try {
-    console.log("get all");
     const res = await axios.get(url);
     dispatch(getAll(res.data));
   } catch (error) {

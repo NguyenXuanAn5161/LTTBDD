@@ -16,7 +16,7 @@ import {
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllItems } from "../../redux/actions";
+import { getAllItems, removeItem } from "../../redux/actions";
 
 const ListItem = () => {
   const navigation = useNavigation();
@@ -25,14 +25,19 @@ const ListItem = () => {
   const todo = useSelector((state) => state.todoApp);
   const [data, setData] = useState([]);
 
+  const currentYear = new Date().getFullYear();
+
   useEffect(() => {
-    console.log("todo: ", todo);
     setData(todo);
   }, [todo]);
 
   useEffect(() => {
     dispatch(getAllItems());
   }, [dispatch]);
+
+  const handleRemoveItem = (id) => {
+    dispatch(removeItem(id));
+  };
 
   const handleGoScreen = (item) => {
     navigation.navigate("AddItem", { item, title: item ? "EDIT" : "ADD" });
@@ -64,10 +69,10 @@ const ListItem = () => {
         <View
           style={{ marginHorizontal: 10, flexDirection: "row", fontSize: 30 }}
         >
-          <TouchableOpacity onPress={() => handleGoScreen(item.id)}>
+          <TouchableOpacity onPress={() => handleGoScreen(item)}>
             <FaEdit style={{ marginRight: 10 }} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => handleRemoveItem(item.id)}>
             <FaTrash style={{ color: "red" }} />
           </TouchableOpacity>
         </View>
@@ -121,7 +126,7 @@ const ListItem = () => {
           </View>
         </ScrollView>
       </View>
-      <View style={styles.footer}>Footer</View>
+      <View style={styles.footer}>&copy; {currentYear}</View>
     </View>
   );
 };
