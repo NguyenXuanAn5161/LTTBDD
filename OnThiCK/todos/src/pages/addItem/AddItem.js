@@ -1,8 +1,15 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaAngleLeft, FaRegUserCircle } from "react-icons/fa";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { useDispatch } from "react-redux";
+import {
+  Picker,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem, editItem } from "../../redux/actions";
 
 const AddItem = () => {
@@ -27,6 +34,22 @@ const AddItem = () => {
   };
 
   const currentYear = new Date().getFullYear();
+
+  const [selectedValue, setSelectedValue] = useState(item ? item.type : "");
+
+  const todo = useSelector((state) => state.todoApp);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setData(todo);
+  }, [todo]);
+
+  const [uniqueTypes, setUniqueTypes] = useState([]);
+
+  useEffect(() => {
+    const types = [...new Set(data.map((item) => item.type))];
+    setUniqueTypes(types);
+  }, [data]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -65,7 +88,25 @@ const AddItem = () => {
               setUpdateItem({ ...updateItem, name: text })
             }
           />
-          {/* sử dụng react-native-element-dropdown để tạo dropdown ở đây với giá trị là type trong item được lưu trong redux toolkit */}
+          <Picker
+            selectedValue={selectedValue}
+            onValueChange={(itemValue, itemIndex) => (
+              setSelectedValue(itemValue),
+              setUpdateItem({ ...updateItem, type: itemValue })
+            )}
+            style={{
+              width: "90%",
+              height: 50,
+              fontSize: 30,
+              borderRadius: 10,
+              marginVertical: "5%",
+              padding: 5,
+            }}
+          >
+            {uniqueTypes.map((item) => (
+              <Picker.Item label={item} value={item} />
+            ))}
+          </Picker>
           <Pressable style={styles.btn_Finish} onPress={handleFinish}>
             <Text style={styles.txt_Finish}>Finish</Text>
           </Pressable>
@@ -101,7 +142,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     marginVertical: "5%",
-    justifyContentc: "center",
+    justifyContent: "center",
     alignItems: "center",
   },
   text_input: {
