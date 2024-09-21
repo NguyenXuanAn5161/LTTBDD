@@ -13,7 +13,7 @@ export default function Cau1_e() {
       <View style={styles.top}>
         <Text style={{ fontWeight: "bold", fontSize: 40, textAlign: "center" }}>
           {" "}
-          LOGIN{" "}
+          REGISTER{" "}
         </Text>
       </View>
       <View style={styles.middle}>
